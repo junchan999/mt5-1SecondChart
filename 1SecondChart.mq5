@@ -15,8 +15,6 @@
 #property indicator_style1 STYLE_SOLID 
 #property indicator_style2 STYLE_SOLID 
 #property  indicator_color2  clrGray
-//#property  indicator_width1  1
-//#property  indicator_width2  1
 
 //--- input parameters
 input int Shift = 300;
@@ -28,7 +26,7 @@ double BufBid[];
 //| Custom indicator initialization function                         |
 //+------------------------------------------------------------------+
 int OnInit() {
-//--- indicator buffers mapping
+    //--- indicator buffers mapping
     EventSetTimer(1);
     
     ArrayResize(BufAsk, Shift);
@@ -36,31 +34,21 @@ int OnInit() {
     ArrayInitialize(BufAsk, 0.0);
     ArrayInitialize(BufBid, 0.0);
     
-//--- indicator buffers mapping
-
-    
+    //--- indicator buffers mapping
     SetIndexBuffer(0, BufAsk, INDICATOR_DATA);
     ArraySetAsSeries(BufAsk, true); 
     SetIndexBuffer(1, BufBid, INDICATOR_DATA);
     ArraySetAsSeries(BufBid, true); 
     
-    // SetIndexStyle(0, DRAW_LINE);
     PlotIndexSetInteger(0, PLOT_LINE_WIDTH, 1);
-    
-    // SetIndexStyle(1, DRAW_LINE);
     PlotIndexSetInteger(1, PLOT_LINE_WIDTH, 1);
-
-    // SetIndexLabel(0, "Ask");
     PlotIndexSetString(0, PLOT_LABEL, "Ask");
-    
-    // SetIndexLabel(1, "Bid");
     PlotIndexSetString(1, PLOT_LABEL, "Bid");
-    
-    // IndicatorShortName("1SecondChart");
     IndicatorSetString(INDICATOR_SHORTNAME, "1SecondChart");
-//---
+
     return(INIT_SUCCEEDED);
 }
+
 //+------------------------------------------------------------------+
 //| Custom indicator iteration function                              |
 //+------------------------------------------------------------------+
@@ -74,16 +62,15 @@ int OnCalculate(const int rates_total,
                 const long &tick_volume[],
                 const long &volume[],
                 const int &spread[]) {
-//---
    
-//--- return value of prev_calculated for next call
+    //--- return value of prev_calculated for next call
     return(rates_total);
 }
 //+------------------------------------------------------------------+
 //| Timer function                                                   |
 //+------------------------------------------------------------------+
 void OnTimer() {
-//---
+    // display datetime on chart
     Comment(TimeToString(TimeLocal(), TIME_DATE | TIME_MINUTES | TIME_SECONDS));
 
     int i;
